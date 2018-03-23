@@ -23,7 +23,7 @@ int main()
 	perestanovka(matr, 0, c, l);
 	printMatrix(matr);
 	//metodGaussa(matr);
-	
+	//
 	withoutRemnant(matr, 1, 0);
 	withoutRemnant(matr, 2, 0);
 	printMatrix(matr);
