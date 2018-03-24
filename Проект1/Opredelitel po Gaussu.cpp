@@ -37,7 +37,7 @@ int main()
 
 	withoutRemnant(matr, 2, 1);
 	printMatrix(matr);
-
+	
 	system("pause");
 	return 0;
 }
@@ -109,23 +109,32 @@ void printMatrix(int matr[3][3])
 void withoutRemnant(int matr[3][3], int line, int column)
 {	
 	int delitel;
-	for (int i = 0; i < 3; i++)
+	for (int i = 2; i > -1; i--)
 	{
 		for (int j = 0; j < 3; j++)
-		{
+		{			
 			// если элемент матрицы делится без остатка. + Пропускаем элемент который передали в ф-ю, + пропускаем ненужные стобцы
-			if (matr[line][column] % matr[i][j] == 0 && i != line && j == column)
+			if (matr[i][j] == 0)
 			{
-				delitel = matr[line][column] / matr[i][j];
-				cout << "Znach. na kot. mogno delit bez ostatka: " << matr[i][j] << endl;
-				cout << "Index znach.: " << i << endl;
-				for (int k = 0; k < 3; k++)
-				{					
-					matr[line][k] -= (matr[i][k] * delitel);									
+				j++;
+			}
+			if (matr[line][column] % matr[i][j] == 0)
+			{
+				if (i != line && j == column)
+				{
+					delitel = matr[line][column] / matr[i][j];
+					cout << "Znach. na kot. mogno delit bez ostatka: " << matr[i][j] << endl;
+					cout << "Index znach.: " << i << endl;
+					for (int k = 0; k < 3; k++)
+					{
+						matr[line][k] -= (matr[i][k] * delitel);
+					}
+					return;
 				}
-				return;
 			}
 		}
-	}	
+
+	}
+		
 }
 // написать метод по поиску нулей
