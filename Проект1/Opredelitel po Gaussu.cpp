@@ -20,8 +20,8 @@ int main()
 		{ 1, 2, 3, 4, 5 },
 		{ 6, 7, 8, 9, 1 },
 		{ 2, 3, 4, 5, 6 },
-		{ 7, 8, 9, 1, 2 },
-		{ 3, 4, 5, 6, 7 }
+		{ 7, 8, 9, 0, 123 },
+		{ 3, 4, 5, 0, 9 }
 	};	
 	float maxEl(0), saveDel(0);
 	int indexMaxEl(0), l(0), c(0), step(1);
@@ -51,7 +51,7 @@ int main()
 		}			
 	}
 	printMatrix(matr);
-	cout << "\n" << setprecision(3) << opredelitel(matr, saveDel, step) << endl;
+	cout << "\n" << setprecision(5) << opredelitel(matr, saveDel, step) << endl;
 	//printMatrix(matr);
 	//maxEl = max(matr, 0, 0);
 	//cout << "\nMax[0][]: " << maxEl << endl;
@@ -139,7 +139,9 @@ void perestanovka(float matr[n][m], int whatColumn1, int whatColumn2, int whatLi
 }
 void printMatrix(float matr[n][m])
 {
-	cout << "\nPrint" << endl;
+	cout << "______________________" << endl;
+	cout << "\n\tPrint" << endl;
+	cout << "----------------------" << endl;
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
@@ -210,8 +212,8 @@ void printMatrix(float matr[n][m])
 // матрица, какую строку взять, из какой строки вычесть
 void vichitaem(float matr[n][m], int line, int whatLine)
 {	
-	float saveValue = 0;
-	cout << "\nVichitaem" << endl;
+	float saveValue;
+	
 	saveValue = matr[whatLine][0];
 	if (saveValue != 0)
 	{
@@ -229,10 +231,10 @@ void vichitaem(float matr[n][m], int line, int whatLine)
 			if (matr[line][j] != 0)
 			{
 				saveValue = matr[whatLine][j];
-				//cout << "\nsaveValue = " << saveValue << endl;
+				cout << "\nVichitaem iz stroki " << whatLine << ", " << saveValue << "(" << line  << ")" << endl;
 				for (int k = 0; k < m; k++)
 				{
-					matr[whatLine][k] = matr[whatLine][k] - (matr[line][k] * saveValue);
+					matr[whatLine][k] -= (matr[line][k] * saveValue);
 				}
 				return;
 			}
@@ -241,8 +243,7 @@ void vichitaem(float matr[n][m], int line, int whatLine)
 }
 void delim2(float matr[n][m], int line, float &saveDel)
 {
-	float saveValue = 0;
-	cout << "\nDelim" << endl;
+	float saveValue = 0;	
 	// если первое значение ноль ( [0] 0 3)
 	if (matr[line][0] == 0 && line > 0)
 	{
@@ -252,6 +253,7 @@ void delim2(float matr[n][m], int line, float &saveDel)
 			if (matr[line][j] != 0)
 			{
 				saveValue = matr[line][j];
+				cout << "\nDelim na "  << saveValue << " v " << line << "-ei stroke " << endl;
 				saveDel = saveValue * saveDel;
 				// когда нашли делим
 				for (int k = 0; k < m; k++)
@@ -267,6 +269,7 @@ void delim2(float matr[n][m], int line, float &saveDel)
 	{
 		saveValue = matr[line][0];
 		saveDel = saveValue;
+		cout << "\nDelim na " << saveValue << " v " << line << "-ei stroke " << endl;
 		// делим каждое значение на первое число, чтобы первое число было равно 1
 		for (int j = 0; j < m; j++)
 		{
