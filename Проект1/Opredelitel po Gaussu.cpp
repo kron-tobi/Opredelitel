@@ -9,11 +9,12 @@ void printMatrix(float matr[3][3]);
 void delim(float matr[3][3], int line);
 void vichitaem(float matr[3][3], int line, int whatLine);
 void delim2(float matr[3][3], int line);
+float opredelitel(float matr[3][3]);
 
 int main()
 {
 	float matr[3][3] = {
-		{ 1, 2, 3 },
+		{ 4, 2, 3 },
 		{ 4, 5, 6 },
 		{ 7, 8, 9 }
 	};	
@@ -41,6 +42,7 @@ int main()
 	printMatrix(matr);
 	vichitaem(matr, 1, 2);
 	printMatrix(matr);
+	cout << "\n" << opredelitel(matr) << endl;
 	/*withoutRemnant(matr, 1, 0);
 	withoutRemnant(matr, 2, 0);
 	printMatrix(matr);
@@ -119,7 +121,7 @@ void printMatrix(float matr[3][3])
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			cout << matr[i][j] << " ";
+			cout << matr[i][j] << "\t";
 		}
 		cout << endl;
 	}
@@ -181,6 +183,7 @@ void delim(float matr[3][3], int line)
 // матрица, какую строку взять, из какой строки вычесть
 void vichitaem(float matr[3][3], int line, int whatLine)
 {
+	//тут ошибка!!! коро
 	float saveValue = 0;
 	saveValue = matr[whatLine][0];
 	if (saveValue != 0)
@@ -199,7 +202,7 @@ void vichitaem(float matr[3][3], int line, int whatLine)
 			if (matr[line][j] != 0)
 			{
 				saveValue = matr[whatLine][j];
-
+				cout << "\nsaveValue = " << saveValue << endl;
 				for (int i = 0; i < 3; i++)
 				{
 					matr[whatLine][i] = matr[whatLine][i] - (matr[line][i] * saveValue);
@@ -246,4 +249,18 @@ void delim2(float matr[3][3], int line)
 		}
 	}
 }
-// написать метод по поиску нулей
+float opredelitel(float matr[3][3])
+{
+	float res = 1;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (i == j)
+			{
+				res *= matr[i][j];
+			}
+		}
+	}
+	return res;
+}
