@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip> 
 using namespace std;
 
 float max(float matr[3][3], int line, int beginCount);
@@ -14,17 +15,18 @@ float opredelitel(float matr[3][3], float &saveDel, int &step);
 int main()
 {
 	float matr[3][3] = {
-		{ 2, 2, 3 },
+		{ 3, 2, 3 },
 		{ 4, 5, 6 },
 		{ 7, 8, 9 }
 	};	
 	float maxEl(0), saveDel(0);
 	int indexMaxEl(0), l(0), c(0), step(1);
 
+	printMatrix(matr);
 	maxEl = max(matr, 0, 0);
-	cout << "Max[0][]: " << maxEl << endl;
+	cout << "\nMax[0][]: " << maxEl << endl;
 	indexElement(maxEl, matr, 0, l, c);
-	cout << "Index Max Element: " << l  << " " << c << endl;
+	cout << "\nIndex Max Element: " << l  << " " << c << endl;
 	perestanovka(matr, 0, c, l, step);
 	printMatrix(matr);
 	delim(matr, 0, saveDel);
@@ -33,9 +35,9 @@ int main()
 	vichitaem(matr, 0, 2);
 	printMatrix(matr);
 	maxEl = max(matr, 1, 1);
-	cout << "Max[1][]: " << maxEl << endl;
+	cout << "\nMax[1][]: " << maxEl << endl;
 	indexElement(maxEl, matr, 1, l, c);
-	cout << "Index Max Element: " << l << " " << c << endl;
+	cout << "\nIndex Max Element: " << l << " " << c << endl;
 	perestanovka(matr, 1, c, l, step);
 	printMatrix(matr);
 	delim2(matr, 1, saveDel);
@@ -110,7 +112,7 @@ void printMatrix(float matr[3][3])
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			cout << matr[i][j] << "\t";
+			cout << setprecision(2) << matr[i][j] << "\t";
 		}
 		cout << endl;
 	}
@@ -148,6 +150,7 @@ void printMatrix(float matr[3][3])
 	}
 		
 }*/
+
 void delim(float matr[3][3], int line, float &saveDel)
 {
 	float saveValue = 0;
@@ -166,7 +169,15 @@ void delim(float matr[3][3], int line, float &saveDel)
 				{
 					matr[line][j] = matr[line][j] / saveValue;
 				}
-			}			
+			}
+			// если 0, то сделаем чтобы была 1
+			else if(matr[line][0] == 0)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					matr[line][j] += 1;
+				}
+			}
 		}		
 	}
 }
