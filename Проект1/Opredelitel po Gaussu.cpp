@@ -2,8 +2,8 @@
 #include <iomanip> 
 using namespace std;
 
-const int n = 4;
-const int m = 4;
+const int n = 5;
+const int m = 5;
 float max(float matr[n][m], int line, int beginCount);
 void indexElement(float maxEl, float matr[n][m], int line, int beginCount, int &l, int &c);
 void perestanovka(float matr[n][m], int whatColumn1, int whatColumn2, int whatLine, int &step);
@@ -17,10 +17,11 @@ float opredelitel(float matr[n][m], float &saveDel, int &step);
 int main()
 {
 	float matr[n][m] = {
-		{ 1, 2, 3, 4 },
-		{ 5, 6, 7, 8 },
-		{ 9, 1, 2, 3 },
-		{ 4, 5, 6, 17 }
+		{ 1, 2, 3, 4, 5 },
+		{ 6, 7, 8, 9, 1 },
+		{ 2, 3, 4, 5, 6 },
+		{ 7, 8, 9, 1, 2 },
+		{ 3, 4, 5, 6, 7 }
 	};	
 	float maxEl(0), saveDel(0);
 	int indexMaxEl(0), l(0), c(0), step(1);
@@ -50,7 +51,7 @@ int main()
 		}			
 	}
 	printMatrix(matr);
-	cout << "\n" << setprecision(10) << opredelitel(matr, saveDel, step) << endl;
+	cout << "\n" << setprecision(3) << opredelitel(matr, saveDel, step) << endl;
 	//printMatrix(matr);
 	//maxEl = max(matr, 0, 0);
 	//cout << "\nMax[0][]: " << maxEl << endl;
@@ -143,7 +144,7 @@ void printMatrix(float matr[n][m])
 	{
 		for (int j = 0; j < m; j++)
 		{
-			cout << setprecision(3) << matr[i][j] << "\t";
+			cout << setprecision(2) << matr[i][j] << "\t";
 		}
 		cout << endl;
 	}
@@ -229,9 +230,9 @@ void vichitaem(float matr[n][m], int line, int whatLine)
 			{
 				saveValue = matr[whatLine][j];
 				//cout << "\nsaveValue = " << saveValue << endl;
-				for (int i = 0; i < n; i++)
+				for (int k = 0; k < m; k++)
 				{
-					matr[whatLine][i] = matr[whatLine][i] - (matr[line][i] * saveValue);
+					matr[whatLine][k] = matr[whatLine][k] - (matr[line][k] * saveValue);
 				}
 				return;
 			}
@@ -253,9 +254,9 @@ void delim2(float matr[n][m], int line, float &saveDel)
 				saveValue = matr[line][j];
 				saveDel = saveValue * saveDel;
 				// когда нашли делим
-				for (int j = 0; j < m; j++)
+				for (int k = 0; k < m; k++)
 				{
-					matr[line][j] = matr[line][j] / saveValue;
+					matr[line][k] = matr[line][k] / saveValue;
 				}
 				return;
 			}
