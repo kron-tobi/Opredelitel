@@ -1,3 +1,5 @@
+// Avtor: Kovalets Vladislav 
+// Programm: Nahogdenie opredelitelya metodom Gaussa s viborom glavnogo elementa po stroke.
 #include <iostream>
 #include <iomanip> 
 using namespace std;
@@ -8,8 +10,6 @@ float max(float matr[n][m], int line, int beginCount);
 void indexElement(float maxEl, float matr[n][m], int line, int beginCount, int &l, int &c);
 void perestanovka(float matr[n][m], int whatColumn1, int whatColumn2, int whatLine, int &step);
 void printMatrix(float matr[n][m]);
-//void withoutRemnant(float matr[3][3], int line, int column);
-//void delim(float matr[n][m], int line, float &saveDel);
 void vichitaem(float matr[n][m], int line, int whatLine);
 void delim2(float matr[n][m], int line, float &saveDel);
 float opredelitel(float matr[n][m], float &saveDel, int &step);
@@ -20,8 +20,8 @@ int main()
 		{ 1, 2, 3, 4, 5 },
 		{ 6, 7, 8, 9, 1 },
 		{ 2, 3, 4, 5, 6 },
-		{ 7, 8, 9, 0, 123 },
-		{ 3, 4, 5, 0, 9 }
+		{ 7, 7, 9, 9, 1 },
+		{ 3, 4, 5, 9, 9 }
 	};	
 	float maxEl(0), saveDel(0);
 	int indexMaxEl(0), l(0), c(0), step(1);
