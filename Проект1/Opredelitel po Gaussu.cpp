@@ -3,31 +3,31 @@ using namespace std;
 
 float max(float matr[3][3], int line, int beginCount);
 void indexElement(float maxEl, float matr[3][3], int index, int &l, int &c);
-void perestanovka(float matr[3][3], int whatColumn1, int whatColumn2, int whatLine);
+void perestanovka(float matr[3][3], int whatColumn1, int whatColumn2, int whatLine, int &step);
 void printMatrix(float matr[3][3]);
 //void withoutRemnant(float matr[3][3], int line, int column);
-void delim(float matr[3][3], int line);
+void delim(float matr[3][3], int line, float &saveDel);
 void vichitaem(float matr[3][3], int line, int whatLine);
-void delim2(float matr[3][3], int line);
-float opredelitel(float matr[3][3]);
+void delim2(float matr[3][3], int line, float &saveDel);
+float opredelitel(float matr[3][3], float &saveDel, int &step);
 
 int main()
 {
 	float matr[3][3] = {
-		{ 4, 2, 3 },
+		{ 2, 2, 3 },
 		{ 4, 5, 6 },
 		{ 7, 8, 9 }
 	};	
-	float maxEl(0);
-	int indexMaxEl(0), l(0), c(0);
+	float maxEl(0), saveDel(0);
+	int indexMaxEl(0), l(0), c(0), step(1);
 
 	maxEl = max(matr, 0, 0);
 	cout << "Max[0][]: " << maxEl << endl;
 	indexElement(maxEl, matr, 0, l, c);
 	cout << "Index Max Element: " << l  << " " << c << endl;
-	perestanovka(matr, 0, c, l);
+	perestanovka(matr, 0, c, l, step);
 	printMatrix(matr);
-	delim(matr, 0);
+	delim(matr, 0, saveDel);
 	printMatrix(matr);
 	vichitaem(matr, 0, 1);
 	vichitaem(matr, 0, 2);
@@ -36,26 +36,14 @@ int main()
 	cout << "Max[1][]: " << maxEl << endl;
 	indexElement(maxEl, matr, 1, l, c);
 	cout << "Index Max Element: " << l << " " << c << endl;
-	perestanovka(matr, 1, c, l);
+	perestanovka(matr, 1, c, l, step);
 	printMatrix(matr);
-	delim2(matr, 1);
+	delim2(matr, 1, saveDel);
 	printMatrix(matr);
 	vichitaem(matr, 1, 2);
 	printMatrix(matr);
-	cout << "\n" << opredelitel(matr) << endl;
-	/*withoutRemnant(matr, 1, 0);
-	withoutRemnant(matr, 2, 0);
-	printMatrix(matr);
-
-	maxEl = max(matr, 1, 1);
-	cout << "Max[1][]: " << maxEl << endl;
-	indexElement(maxEl, matr, 1, l, c);
-	cout << "Index Max Element: " << l << " " << c << endl;
-	perestanovka(matr, 1, c, l);
-	printMatrix(matr);
-
-	withoutRemnant(matr, 2, 1);
-	printMatrix(matr);*/
+	cout << "\n" << opredelitel(matr, saveDel, step) << endl;
+	
 	
 	system("pause");
 	return 0;
@@ -93,17 +81,18 @@ void indexElement(float maxEl, float matr[3][3], int line, int &l, int &c)
 	}	
 }
 // какие столбцы поменять 
-void perestanovka(float matr[3][3], int whatColumn1, int whatColumn2, int whatLine)
+void perestanovka(float matr[3][3], int whatColumn1, int whatColumn2, int whatLine, int &step)
 {
 	float valuePerenos = 0;
 	// если 1-ое число в 1-ом столбце меньше чем у другого
 	if (matr[whatLine][whatColumn1] < matr[whatLine][whatColumn2]) 
 	{
+		step *= (-1);
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				//если номер столбца совпал, 
+				//если номер столбца совпал, то перемещаем этот столбец 
 				if (j == whatColumn1)
 				{
 					valuePerenos = matr[i][j];
@@ -159,7 +148,7 @@ void printMatrix(float matr[3][3])
 	}
 		
 }*/
-void delim(float matr[3][3], int line)
+void delim(float matr[3][3], int line, float &saveDel)
 {
 	float saveValue = 0;
 	for (int i = 0; i < 3; i++)
@@ -171,6 +160,7 @@ void delim(float matr[3][3], int line)
 			if (matr[line][0] != 0)
 			{
 				saveValue = matr[line][0];
+				saveDel = saveValue;
 				// делим каждое значение на первое число
 				for (int j = 0; j < 3; j++)
 				{
@@ -202,7 +192,7 @@ void vichitaem(float matr[3][3], int line, int whatLine)
 			if (matr[line][j] != 0)
 			{
 				saveValue = matr[whatLine][j];
-				cout << "\nsaveValue = " << saveValue << endl;
+				//cout << "\nsaveValue = " << saveValue << endl;
 				for (int i = 0; i < 3; i++)
 				{
 					matr[whatLine][i] = matr[whatLine][i] - (matr[line][i] * saveValue);
@@ -210,24 +200,9 @@ void vichitaem(float matr[3][3], int line, int whatLine)
 				return;
 			}
 		}
-	}
-	/*
-	for (int i = 0; i < 3; i++)
-	{
-		// исключаем
-		if (i != line)
-		{
-			saveValue = matr[i][0];
-			for (int j = 0; j < 3; j++)
-			{
-				matr[i][j] = matr[i][j] - (matr[line][j] * saveValue);
-			}
-			// вычитаем во 2-ой, n 1-ых строк 
-
-		}
-	}*/
+	}	
 }
-void delim2(float matr[3][3], int line)
+void delim2(float matr[3][3], int line, float &saveDel)
 {
 	float saveValue = 0;
 	// если первое значение ноль
@@ -239,6 +214,7 @@ void delim2(float matr[3][3], int line)
 			if (matr[line][i] != 0)
 			{
 				saveValue = matr[line][i];
+				saveDel = saveValue * saveDel;
 				// когда нашли делим
 				for (int j = 0; j < 3; j++)
 				{
@@ -249,7 +225,7 @@ void delim2(float matr[3][3], int line)
 		}
 	}
 }
-float opredelitel(float matr[3][3])
+float opredelitel(float matr[3][3], float &saveDel, int &step)
 {
 	float res = 1;
 	for (int i = 0; i < 3; i++)
@@ -262,5 +238,5 @@ float opredelitel(float matr[3][3])
 			}
 		}
 	}
-	return res;
+	return res * saveDel * step;
 }
