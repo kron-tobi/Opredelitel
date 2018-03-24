@@ -38,11 +38,7 @@ int main()
 			break;
 		}
 		perestanovka(matr, s, c, l, step);
-		printMatrix(matr);
-		/*if (i == 0)
-			delim(matr, i, saveDel);
-		if (i == 1)
-			delim2(matr, 1, saveDel);*/
+		printMatrix(matr);		
 		delim2(matr, s, saveDel);
 		printMatrix(matr);
 		for (int k = s + 1; k < n; k++)
@@ -51,32 +47,7 @@ int main()
 		}			
 	}
 	printMatrix(matr);
-	cout << "\n" << setprecision(5) << opredelitel(matr, saveDel, step) << endl;
-	//printMatrix(matr);
-	//maxEl = max(matr, 0, 0);
-	//cout << "\nMax[0][]: " << maxEl << endl;
-	//indexElement(maxEl, matr, 0, l, c);
-	//cout << "\nIndex Max Element: " << l  << " " << c << endl;
-	//perestanovka(matr, 0, c, l, step);
-	//printMatrix(matr);
-	//delim(matr, 0, saveDel);
-	//printMatrix(matr);
-	//vichitaem(matr, 0, 1);
-	//vichitaem(matr, 0, 2);
-	//printMatrix(matr);
-
-	/*maxEl = max(matr, 1, 1);
-	cout << "\nMax[1][]: " << maxEl << endl;
-	indexElement(maxEl, matr, 1, l, c);
-	cout << "\nIndex Max Element: " << l << " " << c << endl;
-	perestanovka(matr, 1, c, l, step);
-	printMatrix(matr);
-	delim2(matr, 1, saveDel);
-	printMatrix(matr);
-	vichitaem(matr, 1, 2);
-	printMatrix(matr);
-	cout << "\n" << setprecision(4) << opredelitel(matr, saveDel, step) << endl;
-	*/
+	cout << "\n" << setprecision(5) << opredelitel(matr, saveDel, step) << endl;	
 	
 	system("pause");
 	return 0;
@@ -151,64 +122,6 @@ void printMatrix(float matr[n][m])
 		cout << endl;
 	}
 }
-/*void withoutRemnant(float matr[3][3], int line, int column)
-{	
-	int delitel;
-
-	for (int i = 2; i > -1; i--)
-	{
-		for (int j = 0; j < 3; j++)
-		{		
-			// чтобы исключить деление на 0
-			if (matr[i][j] == 0)
-			{
-				j++;
-			}
-			// если элемент матрицы делится без остатка. + Пропускаем элемент который передали в ф-ю, + пропускаем ненужные стобцы
-			if (matr[line][column] % matr[i][j] == 0)
-			{
-				if (i != line && j == column)
-				{
-					delitel = matr[line][column] / matr[i][j];
-					cout << "Znach. na kot. mogno delit bez ostatka: " << matr[i][j] << endl;
-					cout << "Index znach.: " << i << endl;
-					for (int k = 0; k < 3; k++)
-					{
-						matr[line][k] -= (matr[i][k] * delitel);
-					}
-					return;
-				}
-			}
-		}
-
-	}
-		
-}*/
-/*void delim(float matr[n][m], int line, float &saveDel)
-{
-// делим чтобы в первый раз
-
-	float saveValue = 0;
-	
-	for (int i = 0; i < n; i++)
-	{
-		// если мы в нужной строке
-		if (i == line)
-		{
-			// если первое значение в строке не ноль
-			if (matr[line][0] != 0)
-			{
-				saveValue = matr[line][0];
-				saveDel = saveValue;
-				// делим каждое значение на первое число
-				for (int j = 0; j < m; j++)
-				{
-					matr[line][j] = matr[line][j] / saveValue;
-				}
-			}			
-		}		
-	}
-}*/
 // матрица, какую строку взять, из какой строки вычесть
 void vichitaem(float matr[n][m], int line, int whatLine)
 {	
