@@ -15,7 +15,7 @@ float opredelitel(float matr[3][3], float &saveDel, int &step);
 int main()
 {
 	float matr[3][3] = {
-		{ 3, 2, 3 },
+		{ 102, 2, 3 },
 		{ 4, 5, 6 },
 		{ 7, 8, 9 }
 	};	
@@ -44,7 +44,7 @@ int main()
 	printMatrix(matr);
 	vichitaem(matr, 1, 2);
 	printMatrix(matr);
-	cout << "\n" << opredelitel(matr, saveDel, step) << endl;
+	cout << "\n" << setprecision(4) << opredelitel(matr, saveDel, step) << endl;
 	
 	
 	system("pause");
