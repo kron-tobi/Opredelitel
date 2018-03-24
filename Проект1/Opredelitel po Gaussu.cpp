@@ -4,8 +4,8 @@
 #include <iomanip> 
 using namespace std;
 
-const int n = 5;
-const int m = 5;
+const int n = 3;
+const int m = 3;
 float max(float matr[n][m], int line, int beginCount);
 void indexElement(float maxEl, float matr[n][m], int line, int beginCount, int &l, int &c);
 void perestanovka(float matr[n][m], int whatColumn1, int whatColumn2, int whatLine, int &step);
@@ -17,11 +17,9 @@ float opredelitel(float matr[n][m], float &saveDel, int &step);
 int main()
 {
 	float matr[n][m] = {
-		{ 1, 2, 3, 4, 5 },
-		{ 6, 7, 8, 9, 1 },
-		{ 2, 3, 4, 5, 6 },
-		{ 7, 7, 9, 9, 1 },
-		{ 3, 4, 5, 9, 9 }
+		{ 9, 2, 3 },
+		{ 4, 5, 6 },
+		{ 7, 8, 9 }		
 	};	
 	float maxEl(0), saveDel(0);
 	int indexMaxEl(0), l(0), c(0), step(1);
