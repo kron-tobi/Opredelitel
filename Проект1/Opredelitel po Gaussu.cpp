@@ -7,7 +7,8 @@ void perestanovka(float matr[3][3], int whatColumn1, int whatColumn2, int whatLi
 void printMatrix(float matr[3][3]);
 //void withoutRemnant(float matr[3][3], int line, int column);
 void delim(float matr[3][3], int line);
-void vichitaem(float matr[3][3], int line);
+void vichitaem(float matr[3][3], int line, int whatLine);
+void delim2(float matr[3][3], int line);
 
 int main()
 {
@@ -27,13 +28,19 @@ int main()
 	printMatrix(matr);
 	delim(matr, 0);
 	printMatrix(matr);
-	vichitaem(matr, 0);
+	vichitaem(matr, 0, 1);
+	vichitaem(matr, 0, 2);
 	printMatrix(matr);
 	maxEl = max(matr, 1, 1);
 	cout << "Max[1][]: " << maxEl << endl;
 	indexElement(maxEl, matr, 1, l, c);
 	cout << "Index Max Element: " << l << " " << c << endl;
 	perestanovka(matr, 1, c, l);
+	printMatrix(matr);
+	delim2(matr, 1);
+	printMatrix(matr);
+	vichitaem(matr, 1, 2);
+	printMatrix(matr);
 	/*withoutRemnant(matr, 1, 0);
 	withoutRemnant(matr, 2, 0);
 	printMatrix(matr);
@@ -155,42 +162,88 @@ void delim(float matr[3][3], int line)
 	float saveValue = 0;
 	for (int i = 0; i < 3; i++)
 	{
+		// если мы в нужной строке
+		if (i == line)
+		{
+			// если первое значение в строке не ноль
+			if (matr[line][0] != 0)
+			{
+				saveValue = matr[line][0];
+				// делим каждое значение на первое число
+				for (int j = 0; j < 3; j++)
+				{
+					matr[line][j] = matr[line][j] / saveValue;
+				}
+			}			
+		}		
+	}
+}
+// матрица, какую строку взять, из какой строки вычесть
+void vichitaem(float matr[3][3], int line, int whatLine)
+{
+	float saveValue = 0;
+	saveValue = matr[whatLine][0];
+	if (saveValue != 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			matr[whatLine][i] = matr[whatLine][i] - (matr[line][i] * saveValue);			
+		}
+		return;
+	}
+	// если число из whatLine == 0, то надо найти не 0 и потом вычитать
+	else if (saveValue == 0)
+	{
 		for (int j = 0; j < 3; j++)
 		{
-			// если мы в нужной строке
-			if (i == line)
+			if (matr[line][j] != 0)
 			{
-				// если первое значение в строке не ноль
-				if (matr[line][0] != 0)
+				saveValue = matr[whatLine][j];
+
+				for (int i = 0; i < 3; i++)
 				{
-					saveValue = matr[line][0];
-					// делим каждое значение на первое число
-					for (int k = 0; k < 3; k++)
-					{
-						matr[line][k] = matr[line][k] / saveValue;
-					}
+					matr[whatLine][i] = matr[whatLine][i] - (matr[line][i] * saveValue);
 				}
+				return;
 			}
 		}
 	}
-}
-void vichitaem(float matr[3][3], int line)
-{
-	float saveValue = 0;
+	/*
 	for (int i = 0; i < 3; i++)
 	{
+		// исключаем
 		if (i != line)
 		{
 			saveValue = matr[i][0];
 			for (int j = 0; j < 3; j++)
 			{
-				matr[i][j] = matr[i][j] - (matr[0][j] * saveValue);
+				matr[i][j] = matr[i][j] - (matr[line][j] * saveValue);
+			}
+			// вычитаем во 2-ой, n 1-ых строк 
+
+		}
+	}*/
+}
+void delim2(float matr[3][3], int line)
+{
+	float saveValue = 0;
+	// если первое значение ноль
+	if (matr[line][0] == 0)
+	{
+		// найдем следующее значение не равное нулю
+		for (int i = 0; i < 3; i++)
+		{
+			if (matr[line][i] != 0)
+			{
+				saveValue = matr[line][i];
+				// когда нашли делим
+				for (int j = 0; j < 3; j++)
+				{
+					matr[line][j] = matr[line][j] / saveValue;
+				}
+				return;
 			}
 		}
-		/*for (int j = 0; j < 3; j++)
-		{
-			
-		}*/
 	}
 }
 // написать метод по поиску нулей
